@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced Cryptocurrency Trading and Tracking Platform">
+    <title>Crypto Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #00d09c;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #00d09c;
+        }
+        #theme-toggle {
+            background-color: #00d09c;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        #theme-toggle:hover {
+            background-color: #00b07a;
+        }
+        .section {
+            padding: 50px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table thead {
+            background-color: #1e1e1e;
+        }
+        table th, table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        table th {
+            color: #00d09c;
+            font-weight: bold;
+        }
+        table tbody tr:hover {
+            background-color: #333;
+        }
+        #search-bar {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+        .tab-container {
+            display: flex;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .tab-button {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            cursor: pointer;
+            color: #ffffff;
+        }
+        .tab-button.active {
+            background-color: #00d09c;
+            color: #121212;
+            font-weight: bold;
+        }
+        .profile-section {
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .profile-section h2 {
+            color: #00d09c;
+        }
+        .chart-section {
+            margin-top: 30px;
+        }
+        footer {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+        footer .social-links a {
+            margin: 0 10px;
+            color: #00d09c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer .social-links a:hover {
+            color: #00b07a;
+        }
+    </style>
+</head>
+<body>
+<!-- Header Section -->
+<header>
+    <div class="container">
+        <h1>Crypto Dashboard</h1>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#favorites">Favorites</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#trade">Trade</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle">Dark Mode</button>
+    </div>
+</header>
+
+<!-- Real-Time Data Section -->
+<section id="dashboard" class="section">
+    <div class="container">
+        <h2>Real-Time Market Data</h2>
+        <input type="text" id="search-bar" placeholder="Search for a cryptocurrency...">
+        <div id="real-time-data">
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Symbol</th>
+                    <th>Price (USD)</th>
+                    <th>24h Change</th>
+                    <th>Volume</th>
+                </tr>
+                </thead>
+                <tbody id="crypto-data">
+                <!-- Binance API data will populate here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Trading Section -->
+<section id="trade" class="section">
+    <div class="container">
+        <h2>Simulated Trading</h2>
+        <form id="trade-form">
+            <label for="crypto">Select Cryptocurrency:</label>
+            <select id="crypto" name="crypto">
+                <option value="BTC">Bitcoin (BTC)</option>
+                <option value="ETH">Ethereum (ETH)</option>
+                <option value="BNB">Binance Coin (BNB)</option>
+            </select>
+            <label for="amount">Amount to Buy/Sell:</label>
+            <input type="number" id="amount" name="amount" required>
+            <button type="submit">Execute Trade</button>
+        </form>
+    </div>
+</section>
+
+<!-- Chart Section -->
+<section id="chart" class="section">
+    <div class="container">
+        <h2>Trading Chart</h2>
+        <div id="chart-container">
+            <!-- TradingView chart or custom chart will appear here -->
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Analytics Section -->
+<section id="portfolio-analytics" class="section">
+    <div class="container">
+        <h2>Portfolio Analytics</h2>
+        <div id="analytics-content">
+            <canvas id="portfolio-analytics-chart"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- AI Prediction Section -->
+<section id="ai-prediction" class="section">
+    <div class="container">
+        <h2>AI Market Predictions</h2>
+        <p>Get AI-driven predictions for market trends and potential price movements.</p>
+        <div id="ai-prediction-content">
+            <ul>
+                <li>Bitcoin: <span id="ai-btc-prediction">Loading...</span></li>
+                <li>Ethereum: <span id="ai-eth-prediction">Loading...</span></li>
+                <li>Binance Coin: <span id="ai-bnb-prediction">Loading...</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Historical Data Section -->
+<section id="historical-data" class="section">
+    <div class="container">
+        <h2>Historical Data</h2>
+        <table id="historical-data-table">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Open</th>
+                <th>Close</th>
+                <th>High</th>
+                <th>Low</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Historical data will populate here -->
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Advanced Alerts Section -->
+<section id="alerts" class="section">
+    <div class="container">
+        <h2>Price Alerts</h2>
+        <form id="alert-form">
+            <label for="alert-crypto">Cryptocurrency:</label>
+            <select id="alert-crypto">
+                <option value="BTC">Bitcoin (BTC)</option>
+                <option value="ETH">Ethereum (ETH)</option>
+                <option value="BNB">Binance Coin (BNB)</option>
+            </select>
+            <label for="alert-price">Target Price:</label>
+            <input type="number" id="alert-price" placeholder="Enter target price...">
+            <button type="submit">Set Alert</button>
+        </form>
+    </div>
+</section>
+
+<!-- News Section -->
+<section id="news" class="section">
+    <div class="container">
+        <h2>Latest Crypto News</h2>
+        <div id="news-container">
+            <!-- News articles dynamically fetched -->
+        </div>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Crypto Dashboard. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#">Twitter</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">GitHub</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const apiUrl = "https://api.binance.com/api/v3/ticker/24hr";
+
+    async function fetchCryptoData() {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        const tbody = document.getElementById('crypto-data');
+        tbody.innerHTML = "";
+
+        data.slice(0, 10).forEach((crypto) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                    <td>${crypto.symbol}</td>
+                    <td>${crypto.symbol}</td>
+                    <td>${parseFloat(crypto.lastPrice).toFixed(2)}</td>
+                    <td>${parseFloat(crypto.priceChangePercent).toFixed(2)}%</td>
+                    <td>${parseFloat(crypto.volume).toLocaleString()}</td>
+                `;
+            tbody.appendChild(row);
+        });
+    }
+
+    fetchCryptoData();
+    setInterval(fetchCryptoData, 5000);
+</script>
+</body>
+</html>
